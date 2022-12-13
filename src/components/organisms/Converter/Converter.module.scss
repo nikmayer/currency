@@ -1,0 +1,30 @@
+.converter {
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  width: 100%;
+  margin: 0 50px;
+
+  &__item__wrapper{
+    position: relative;
+  }
+
+  &__arrows{
+    position: absolute;
+    right: 0;
+    display: flex;
+    top: -10px;
+    cursor: pointer;
+    
+
+    svg{
+      width: 30px;
+      transform: rotate(90deg);
+      path{
+        fill: var(--color-red)
+      }
+    }
+    
+  }
+
+}

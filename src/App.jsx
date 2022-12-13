@@ -1,6 +1,11 @@
+import Converter from './components/organisms/Converter/Converter';
+
+import '../src/index.css';
+
 function App() {
   return (
-    <div className="App">s
+    <div className="App">
+      <Converter />
     </div>
   );
 }

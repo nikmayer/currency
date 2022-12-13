@@ -1,0 +1,22 @@
+.categories {
+  display: flex;
+  width: fit-content;
+  margin: 10px 0;
+
+  &__category {
+
+    &:first-child{
+      margin-left: 0px;
+    }
+    width: fit-content;
+    padding: 5px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &__active {
+      color: #fff;
+      background-color: var(--color-red);
+    }
+  }
+}

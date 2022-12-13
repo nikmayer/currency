@@ -1,0 +1,11 @@
+.converter__item{
+  &:first-child{
+    margin-bottom: 50px;
+  }
+
+  &__title{
+    color: var(--color-red);
+    font-size: 20px;
+
+  }
+}
