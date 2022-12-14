@@ -13,14 +13,6 @@ const Categories = ({ type }) => {
 
   const dispatch = useDispatch();
 
-  // const { selectedCategory } = state.convert['to'];
-
-  // return {
-  //   selectedCategory: selectedCategory,
-  //   selectedDirection: activeDirectionsTo[0],
-  //   activeDirections: activeDirectionsTo,
-  // };
-
   const changeCategory = (category, filter, convert) => {
     if (type === 'from') {
       dispatch(setConvertFrom({ selectedCategory: category }));

@@ -12,11 +12,9 @@ import {
 } from '../../../store/convert/convertSlice';
 
 const ConverterItem = ({ title, type }) => {
-  const { selectedCategory, selectedDirection, activeDirections } = useSelector(
-    (state) => state.convert[type],
-  );
+  const { selectedCategory, selectedDirection } = useSelector((state) => state.convert[type]);
 
-  console.log(type, selectedCategory, selectedDirection, activeDirections);
+  // console.log(type, selectedCategory, selectedDirection);
 
   const filter = useSelector((state) => state.filter);
 
@@ -32,10 +30,24 @@ const ConverterItem = ({ title, type }) => {
   useEffect(() => {
     if (type == 'from') {
       dispatch(setConvertFrom({ selectedDirection: directions[0] }));
+      if (directions[0])
+        dispatch(
+          setConvertTo({
+            selectedCategory: 'Все',
+            selectedDirection: filter.find((list) => list.from.name == directions[0].name)?.to[0],
+          }),
+        );
+      else
+        dispatch(
+          setConvertTo({
+            selectedCategory: 'Все',
+            selectedDirection: {},
+          }),
+        );
     } else if (type == 'to') {
-      dispatch(setConvertTo({ selectedDirection: directions[0] }));
+      if (directions) dispatch(setConvertTo({ selectedDirection: directions[0] }));
     }
-  }, [selectedCategory]);
+  }, [filter, selectedCategory]);
 
   return (
     <div className={cl.converter__item}>

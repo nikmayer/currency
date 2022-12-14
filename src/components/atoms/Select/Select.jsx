@@ -17,12 +17,29 @@ const Select = ({ list, selectedDirection, type }) => {
 
   const dispatch = useDispatch();
 
+  const filter = useSelector((state) => state.filter);
+
+  const handleClick = (dir) => {
+    if (type == 'from') {
+      dispatch(setConvertFrom({ selectedDirection: dir }));
+      dispatch(
+        setConvertTo({
+          selectedCategory: 'Все',
+          selectedDirection: filter.find((list) => list.from.name == dir.name)?.to[0],
+        }),
+      );
+    } else if (type == 'to') dispatch(setConvertTo({ selectedDirection: dir }));
+  };
+
   return (
     <>
       <div className={cl.select}>
         <div className={cl.select__input}>
           <input type="text" placeholder="Введите значение..." />
-          <div className={cl.select__btn} onClick={() => setIsSelectActive((prev) => !prev)}>
+          <div
+            ref={ref}
+            className={cl.select__btn}
+            onClick={() => setIsSelectActive((prev) => !prev)}>
             <p>{selectedDirection?.code}</p>
             <div
               className={cn(cl.select__btn__arrow, {
@@ -32,18 +49,14 @@ const Select = ({ list, selectedDirection, type }) => {
             </div>
           </div>
         </div>
-        {isSelectActive && (
-          <div ref={ref} className={cl.select__list}>
-            {list.length ? (
+        {
+          <div className={cn(cl.select__list, { [cl.select__list__active]: isSelectActive })}>
+            {list && list.length ? (
               list.map((dir) => (
                 <div
                   className={cl.select__list__item}
                   key={dir.name}
-                  onClick={() => {
-                    if (type == 'from') {
-                      dispatch(setConvertFrom({ selectedDirection: dir }));
-                    } else if (type == 'to') dispatch(setConvertTo({ selectedDirection: dir }));
-                  }}>
+                  onClick={() => handleClick(dir)}>
                   {dir.name}
                 </div>
               ))
@@ -51,7 +64,7 @@ const Select = ({ list, selectedDirection, type }) => {
               <div className={cl.select__list__item}>Нет результатов</div>
             )}
           </div>
-        )}
+        }
       </div>
     </>
   );

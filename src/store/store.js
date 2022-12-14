@@ -7,7 +7,6 @@ export const store = configureStore({
   reducer: {
     directions: directionsSlice,
     filter: filterSlice,
-    // fromConvert: fromConvertSlice,
     convert: convertSlice,
   },
 });

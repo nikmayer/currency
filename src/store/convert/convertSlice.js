@@ -11,7 +11,6 @@ const convertSlice = createSlice({
     to: {
       selectedCategory: 'Все',
       selectedDirection: { code: '', name: '' },
-      activeDirections: [],
     },
   },
   reducers: {
@@ -19,19 +18,6 @@ const convertSlice = createSlice({
       return { ...state, ...action.payload };
     },
     setConvertFrom(state, action) {
-      // if (action.payload.filter.lenght) {
-      //   let activeDirectionsTo = action.payload.filter.find(
-      //     (list) => list.from.name == state.from.selectedDirection.name,
-      //   ).to;
-      //   return {
-      //     to: {
-      //       ...state.to,
-      //       selectedDirection: activeDirectionsTo[0],
-      //       activeDirections: activeDirectionsTo,
-      //     },
-      //     from: { ...state.from, ...action.payload.data },
-      //   };
-      // } else
       return { ...state, from: { ...state.from, ...action.payload } };
     },
 
@@ -40,13 +26,6 @@ const convertSlice = createSlice({
     },
   },
 });
-
-export const selectConvertToByFilter = (state, filter) => {
-  if (filter.lenght)
-    return filter.find((list) => list.from.name == state.from.selectedDirection.name).to;
-  else return [];
-  // const { selectedCategory, selectedDirection, activeDirections } = state.convert['to'];
-};
 
 export const selectDirectionsByCategory = (state, category, type, filter) => {
   let toDirections;
@@ -67,7 +46,7 @@ export const selectDirectionsByCategory = (state, category, type, filter) => {
         return state.convert[type].activeDirections.filter((dir) =>
           ['BTC', 'ETH', 'USDTTRC'].includes(dir.code),
         );
-      else if (type == 'to' && filter.length)
+      else if (type == 'to' && filter.length && toDirections)
         return toDirections.filter((dir) => ['BTC', 'ETH', 'USDTTRC'].includes(dir.code));
     }
     case 'Наличные': {
@@ -75,7 +54,7 @@ export const selectDirectionsByCategory = (state, category, type, filter) => {
         return state.convert[type].activeDirections.filter((dir) =>
           ['CASHRUB', 'CASHUSD'].includes(dir.code),
         );
-      else if (type == 'to' && filter.length)
+      else if (type == 'to' && filter.length && toDirections)
         return toDirections.filter((dir) => ['CASHRUB', 'CASHUSD'].includes(dir.code));
     }
     case 'Банки RUB': {
@@ -83,7 +62,7 @@ export const selectDirectionsByCategory = (state, category, type, filter) => {
         return state.convert[type].activeDirections.filter((dir) =>
           ['ACRUB', 'SBERRUB', 'TCSBRUB'].includes(dir.code),
         );
-      else if (type == 'to' && filter.length)
+      else if (type == 'to' && filter.length && toDirections)
         return toDirections.filter((dir) => ['ACRUB', 'SBERRUB', 'TCSBRUB'].includes(dir.code));
     }
 
