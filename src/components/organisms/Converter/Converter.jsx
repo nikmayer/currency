@@ -6,26 +6,20 @@ import ConverterItem from '../../molecules/ConverterItem/ConverterItem';
 import ArrowSwap from '../../../assets/arrows-swap.svg';
 
 import cl from './Converter.module.scss';
-
-import listFrom from '../../../../public/db/directions.json';
-import listsTo from '../../../../public/db/filter.json';
+import { useSelector } from 'react-redux';
+import { selectConvertToByFilter } from '../../../store/convert/convertSlice';
 
 const Converter = () => {
-  // const [listTo, setListTo] = useState([]);
-
-  const { to: listTo } = listsTo.filter((list) => list.from.name == 'Bitcoin BTC')[0];
-
-  console.log(listTo);
-
+  // console.log(useSelector((state) => selectConvertToByFilter(state, filter)));
   return (
     <div className={cl.converter}>
-      <ConverterItem title="Отдаёте" />
+      <ConverterItem title="Отдаёте" type="from" />
       <div className={cl.converter__item__wrapper}>
         <div className={cl.converter__arrows}>
           <ArrowSwap />
         </div>
 
-        <ConverterItem title="Получаете" />
+        <ConverterItem title="Получаете" type="to" />
       </div>
 
       {/* <Select list={listTo} /> */}
